@@ -11,7 +11,7 @@ public class Horse extends ChessPiece {
         if (toLine > 7 || toColumn > 7 || toLine < 0 || toColumn < 0) return false;
         int lineDif = Math.abs(line - toLine);
         int columnDif = Math.abs(column - toColumn);
-        return (lineDif == 1 && columnDif == 2) || (lineDif == 2 && columnDif == 1);
+        return ((lineDif == 1 && columnDif == 2) || (lineDif == 2 && columnDif == 1));
     }
 
     @Override

@@ -8,16 +8,31 @@ public class Pawn extends ChessPiece {
     @Override
     public boolean canMoveToPosition(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
         if (toLine > 7 || toColumn > 7 || toLine < 0 || toColumn < 0) return false;
-        if (column != toColumn) return false;
 
+        int columnDif = Math.abs(toColumn - column);
+        int lineDif = Math.abs(toLine - line);
         if (this.getColor().equals("White")) {
-            if (line == 1 && toLine == 3) return true;
-            return toLine - line == 1;
+            if (column == toColumn) {
+                if (line == 1 && toLine == 3) {
+                    return chessBoard.board[2][column] == null && chessBoard.board[3][column] == null;
+                } else if (toLine - line == 1) {
+                    return chessBoard.board[toLine][column] == null;
+                }
+            } else if (columnDif == 1 && lineDif == 1) {
+                return chessBoard.board[toLine][toColumn] != null;
+            }
         } else if (this.getColor().equals("Black")) {
-            if (line == 6 && toLine == 4) return true;
-            return line - toLine == 1;
+            if (column == toColumn) {
+                if (line == 6 && toLine == 4) {
+                    return chessBoard.board[5][column] == null && chessBoard.board[4][column] == null;
+                } else if (line - toLine == 1) {
+                    return chessBoard.board[toLine][column] == null;
+                }
+            } else if (columnDif == 1 && lineDif == 1) {
+                return chessBoard.board[toLine][toColumn] != null;
+            }
         } else throw new RuntimeException("Неизвестный цвет фигуры");
-
+        return false;
     }
 
     @Override
